@@ -15,12 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.compose.rememberNavController
 
-data class Event(val title: String, val description: String, val price: String)
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(navController: NavHostController, events: List<Event>) {
     Scaffold(
@@ -59,16 +54,6 @@ fun EventItem(event: Event) {
     Column(modifier = Modifier.padding(16.dp)) {
         Text(text = event.title, fontSize = 20.sp, fontWeight = FontWeight.Bold)
         Text(text = event.description, fontSize = 16.sp)
-        Text(text = event.price, fontSize = 14.sp)
+        Text(text = "${event.price} €", fontSize = 14.sp)
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun MainScreenPreview() {
-    val events = listOf(
-        Event("Evento 1", "Descripción del evento 1", "$10"),
-        Event("Evento 2", "Descripción del evento 2", "$20")
-    )
-    MainScreen(navController = rememberNavController(), events = events)
 }
