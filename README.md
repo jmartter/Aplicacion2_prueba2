@@ -1,6 +1,6 @@
 # Ejercicio 2 Examen Eventos
 
-Este repositorio contiene una aplicación Android desarrollada en Kotlin utilizando Jetpack Compose y Firebase Firestore. La aplicación permite a los usuarios gestionar eventos, añadir nuevos eventos y ver la lista de eventos.
+Este repositorio contiene una aplicación Android desarrollada en Kotlin utilizando Jetpack Compose y Firebase Firestore. La aplicación permite a los usuarios gestionar eventos, añadir nuevos eventos y ver la lista de eventos, ademas de cambiar el idioma de la aplicación.
 
 ## Repositorio
 
@@ -10,7 +10,7 @@ El código fuente de la aplicación se encuentra en el siguiente repositorio de 
 
 ### Pantalla Principal
 
-La pantalla principal (`MainScreen`) es el punto de entrada de la aplicación. Desde aquí, los usuarios pueden ver la lista de eventos y navegar a la pantalla de registro de eventos.
+La pantalla principal (`MainScreen`) es el punto de entrada de la aplicación. Desde aquí, los usuarios pueden ver la lista de eventos y navegar a la pantalla de registro de eventos, asi como cambiar el idioma de la aplicación.
 
 <img src="app/src/main/res/drawable/pantalla1.png" alt="Pantalla Principal" width="200"/>
 
