@@ -16,6 +16,8 @@ import androidx.navigation.NavHostController
 import androidx.compose.ui.platform.LocalContext
 import android.widget.Toast
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Composable
 fun RegisterScreen(navController: NavHostController, events: MutableList<Event>) {
@@ -66,7 +68,7 @@ fun RegisterScreen(navController: NavHostController, events: MutableList<Event>)
             TextField(value = description, onValueChange = { description = it }, label = { Text("Descripción") })
             TextField(value = address, onValueChange = { address = it }, label = { Text("Dirección") })
             TextField(value = price, onValueChange = { price = it }, label = { Text("Precio") })
-            TextField(value = date, onValueChange = { date = it }, label = { Text("Fecha") })
+            TextField(value = date, onValueChange = { date = it }, label = { Text("Fecha (dd-MM-yyyy)") })
             TextField(value = capacity, onValueChange = { capacity = it }, label = { Text("Aforo") })
             Spacer(modifier = Modifier.weight(1f))
             Row(
@@ -76,6 +78,21 @@ fun RegisterScreen(navController: NavHostController, events: MutableList<Event>)
                 SmallButton(text = "Cerrar", onClick = { navController.popBackStack() })
                 Spacer(modifier = Modifier.width(16.dp))
                 SmallButton(text = "Guardar", onClick = {
+                    val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+                    val currentDate = Date()
+                    val eventDate: Date?
+
+                    try {
+                        eventDate = dateFormat.parse(date)
+                        if (eventDate == null || eventDate.before(currentDate)) {
+                            Toast.makeText(context, "La fecha debe ser válida y posterior a la fecha actual (dd-MM-yyyy)", Toast.LENGTH_SHORT).show()
+                            return@SmallButton
+                        }
+                    } catch (e: Exception) {
+                        Toast.makeText(context, "La fecha debe tener el formato dd-MM-yyyy", Toast.LENGTH_SHORT).show()
+                        return@SmallButton
+                    }
+
                     if (capacity.toIntOrNull() == null) {
                         Toast.makeText(context, "El aforo debe ser un número", Toast.LENGTH_SHORT).show()
                     } else if (price != "gratis" && price.toDoubleOrNull() == null) {
