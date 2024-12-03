@@ -1,4 +1,4 @@
-# Aplicacion2_prueba2
+# Ejercicio 2 Examen Eventos
 
 Este repositorio contiene una aplicación Android desarrollada en Kotlin utilizando Jetpack Compose y Firebase Firestore. La aplicación permite a los usuarios gestionar eventos, añadir nuevos eventos y ver la lista de eventos.
 
