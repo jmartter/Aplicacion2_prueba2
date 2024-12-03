@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.aplicacion2_prueba2"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.aplicacion2_prueba2"
@@ -57,13 +57,6 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
-
-    // Add the dependencies for Firebase products you want to use
     implementation("com.google.firebase:firebase-analytics")
-    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
-
-    // Add the dependencies for Firebase products you want to use
-    implementation("com.google.firebase:firebase-firestore-ktx")
 }
