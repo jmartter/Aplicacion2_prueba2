@@ -1,5 +1,6 @@
 package com.example.aplicacion2_prueba2
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -65,9 +67,22 @@ fun MainScreen(navController: NavHostController, events: MutableList<Event>) {
 
 @Composable
 fun EventItem(event: Event) {
-    Column(modifier = Modifier.padding(16.dp)) {
-        Text(text = event.title, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-        Text(text = event.description, fontSize = 16.sp)
-        Text(text = "${event.price} €", fontSize = 14.sp)
+    Row(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.imagen),
+            contentDescription = "Imagen predefinida",
+            modifier = Modifier.size(64.dp)
+        )
+        Spacer(modifier = Modifier.width(16.dp))
+        Column {
+            Text(text = event.title, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+            Text(text = event.description, fontSize = 16.sp)
+            Text(text = "${event.price} €", fontSize = 14.sp)
+        }
     }
 }
