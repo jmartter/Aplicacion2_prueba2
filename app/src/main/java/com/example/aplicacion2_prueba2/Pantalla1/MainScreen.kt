@@ -22,7 +22,7 @@ import com.example.aplicacion2_prueba2.R
 import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
-fun MainScreen(navController: NavHostController, events: MutableList<Event>) {
+fun MainScreen(navController: NavHostController, events: MutableList<Event>, isEnglish: MutableState<Boolean>) {
     val db = FirebaseFirestore.getInstance()
 
     LaunchedEffect(Unit) {
@@ -45,30 +45,42 @@ fun MainScreen(navController: NavHostController, events: MutableList<Event>) {
                     .height(56.dp)
             ) {
                 Text(
-                    text = "Eventos",
+                    text = if (isEnglish.value) "Events" else "Eventos",
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.align(Alignment.CenterStart).padding(start = 16.dp) // Texto alineado a la izquierda
                 )
-                IconButton(
-                    onClick = { navController.navigate("register") },
-                    modifier = Modifier.align(Alignment.CenterEnd).padding(end = 16.dp)
+                Row(
+                    modifier = Modifier.align(Alignment.CenterEnd).padding(end = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(Icons.Default.Add, contentDescription = "Add Event", tint = Color.White)
+                    IconButton(
+                        onClick = { isEnglish.value = !isEnglish.value }
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_language), // Requiere un ícono de idioma en drawable
+                            contentDescription = if (isEnglish.value) "Switch to Spanish" else "Cambiar a inglés",
+                            tint = Color.White
+                        )
+                    }
+                    IconButton(
+                        onClick = { navController.navigate("register") }
+                    ) {
+                        Icon(Icons.Default.Add, contentDescription = if (isEnglish.value) "Add Event" else "Agregar Evento", tint = Color.White)
+                    }
                 }
             }
         }
     ) { padding ->
         LazyColumn(modifier = Modifier.padding(padding)) {
             items(events) { event ->
-                EventItem(event)
+                EventItem(event, isEnglish.value)
             }
         }
     }
 }
-
 @Composable
-fun EventItem(event: Event) {
+fun EventItem(event: Event, isEnglish: Boolean) {
     Row(
         modifier = Modifier
             .padding(16.dp)
@@ -77,14 +89,14 @@ fun EventItem(event: Event) {
     ) {
         Image(
             painter = painterResource(id = R.drawable.imagen),
-            contentDescription = "Imagen predefinida",
+            contentDescription = if (isEnglish) "Default Image" else "Imagen predefinida",
             modifier = Modifier.size(64.dp)
         )
         Spacer(modifier = Modifier.width(16.dp))
         Column {
             Text(text = event.title, fontSize = 20.sp, fontWeight = FontWeight.Bold)
             Text(text = event.description, fontSize = 16.sp)
-            Text(text = "${event.price} €", fontSize = 14.sp)
+            Text(text = "${event.price} ${if (isEnglish) "$" else "€"}", fontSize = 14.sp)
         }
     }
 }
