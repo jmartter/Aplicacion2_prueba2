@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.compose.ui.platform.LocalContext
 import android.widget.Toast
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
 fun RegisterScreen(navController: NavHostController, events: MutableList<Event>) {
@@ -22,6 +23,7 @@ fun RegisterScreen(navController: NavHostController, events: MutableList<Event>)
     var capacity by remember { mutableStateOf("") }
     var address by remember { mutableStateOf("") }
     val context = LocalContext.current
+    val db = FirebaseFirestore.getInstance()
 
     Scaffold(
         topBar = {
@@ -49,10 +51,10 @@ fun RegisterScreen(navController: NavHostController, events: MutableList<Event>)
         ) {
             TextField(value = title, onValueChange = { title = it }, label = { Text("Nombre") })
             TextField(value = description, onValueChange = { description = it }, label = { Text("Descripción") })
+            TextField(value = address, onValueChange = { address = it }, label = { Text("Dirección") })
             TextField(value = price, onValueChange = { price = it }, label = { Text("Precio") })
             TextField(value = date, onValueChange = { date = it }, label = { Text("Fecha") })
             TextField(value = capacity, onValueChange = { capacity = it }, label = { Text("Aforo") })
-            TextField(value = address, onValueChange = { address = it }, label = { Text("Dirección") })
             Spacer(modifier = Modifier.weight(1f))
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -69,8 +71,15 @@ fun RegisterScreen(navController: NavHostController, events: MutableList<Event>)
                     } else if (price != "gratis" && price.toDouble() < 0) {
                         Toast.makeText(context, "El precio no puede ser negativo", Toast.LENGTH_SHORT).show()
                     } else {
-                        events.add(Event(title, description, price, date, capacity.toInt(), address))
-                        navController.popBackStack()
+                        val event = Event(title, description, price, date, capacity.toInt(), address)
+                        db.collection("events").add(event)
+                            .addOnSuccessListener {
+                                events.add(event)
+                                navController.popBackStack()
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(context, "Error al guardar el evento", Toast.LENGTH_SHORT).show()
+                            }
                     }
                 }) {
                     Text("Guardar")

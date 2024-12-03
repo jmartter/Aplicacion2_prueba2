@@ -7,7 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,9 +15,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
-fun MainScreen(navController: NavHostController, events: List<Event>) {
+fun MainScreen(navController: NavHostController, events: MutableList<Event>) {
+    val db = FirebaseFirestore.getInstance()
+
+    LaunchedEffect(Unit) {
+        db.collection("events").get()
+            .addOnSuccessListener { result ->
+                events.clear()
+                for (document in result) {
+                    val event = document.toObject(Event::class.java)
+                    events.add(event)
+                }
+            }
+    }
+
     Scaffold(
         topBar = {
             Box(
