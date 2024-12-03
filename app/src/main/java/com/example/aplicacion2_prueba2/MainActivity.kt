@@ -5,6 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -22,9 +25,11 @@ class MainActivity : ComponentActivity() {
             Aplicacion2_prueba2Theme {
                 val navController = rememberNavController()
                 val events = remember { mutableStateListOf<Event>() }
+                val isEnglish = remember { mutableStateOf(false) }
+
                 NavHost(navController = navController, startDestination = "main") {
-                    composable("main") { MainScreen(navController, events) }
-                    composable("register") { RegisterScreen(navController, events) }
+                    composable("main") { MainScreen(navController, events, isEnglish) }
+                    composable("register") { RegisterScreen(navController, events, isEnglish) }
                 }
             }
         }
