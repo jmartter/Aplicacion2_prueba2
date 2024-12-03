@@ -1,4 +1,4 @@
-package com.example.aplicacion2_prueba2
+package com.example.aplicacion2_prueba2.eventos
 
 data class Event(
     val title: String = "",

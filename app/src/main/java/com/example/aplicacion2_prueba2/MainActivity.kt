@@ -8,6 +8,9 @@ import androidx.compose.runtime.remember
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.aplicacion2_prueba2.Pantalla1.MainScreen
+import com.example.aplicacion2_prueba2.Pantalla2.RegisterScreen
+import com.example.aplicacion2_prueba2.eventos.Event
 import com.example.aplicacion2_prueba2.ui.theme.Aplicacion2_prueba2Theme
 import com.google.firebase.FirebaseApp
 

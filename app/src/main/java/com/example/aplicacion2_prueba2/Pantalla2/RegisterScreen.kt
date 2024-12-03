@@ -1,4 +1,4 @@
-package com.example.aplicacion2_prueba2
+package com.example.aplicacion2_prueba2.Pantalla2
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,6 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.compose.ui.platform.LocalContext
 import android.widget.Toast
+import com.example.aplicacion2_prueba2.eventos.Event
+import com.example.aplicacion2_prueba2.R
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
