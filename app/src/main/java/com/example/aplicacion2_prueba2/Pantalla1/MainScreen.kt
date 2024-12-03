@@ -54,15 +54,16 @@ fun MainScreen(navController: NavHostController, events: MutableList<Event>, isE
                     modifier = Modifier.align(Alignment.CenterEnd).padding(end = 16.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    IconButton(
-                        onClick = { isEnglish.value = !isEnglish.value }
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_language), // Requiere un ícono de idioma en drawable
-                            contentDescription = if (isEnglish.value) "Switch to Spanish" else "Cambiar a inglés",
-                            tint = Color.White
-                        )
-                    }
+                IconButton(
+                    onClick = { isEnglish.value = !isEnglish.value }
+                ) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_language), // Asegúrate de que el recurso de la imagen exista
+                        contentDescription = if (isEnglish.value) "Switch to Spanish" else "Cambiar a inglés",
+                        tint = Color.Unspecified, // Elimina el tinte para mostrar la imagen original
+                        modifier = Modifier.size(24.dp) // Ajusta el tamaño de la imagen
+                    )
+                }
                     IconButton(
                         onClick = { navController.navigate("register") }
                     ) {
